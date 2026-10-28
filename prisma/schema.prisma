@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Member {
+  id   String @id
+  role String
+}
+
+model Decision {
+  id           String   @id
+  title        String
+  reason       String
+  authorId     String
+  status       String
+  supersededBy String?
+  createdAt    DateTime @default(now())
+}
+
+model Incident {
+  id         String   @id
+  title      String
+  severity   String
+  status     String
+  decisionId String?
+  createdAt  DateTime @default(now())
+}
